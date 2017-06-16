@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Built-By: Edmundo Cerda
+Build-Jdk: 1.7.0_80
+Bundle-Version: 1.0.0.SNAPSHOT
+Tool: Bnd-1.15.0
+Bundle-Name: Project Name :: hello-world
+Bnd-LastModified: 1497579814420
+Created-By: Apache Maven Bundle Plugin
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: hello-world
+Import-Package: org.apache.camel.component.jasypt,org.apache.camel.osg
+ i,org.jasypt.encryption.pbe,org.jasypt.encryption.pbe.config,org.osgi
+ .service.blueprint;version="[1.0.0,2.0.0)"
+

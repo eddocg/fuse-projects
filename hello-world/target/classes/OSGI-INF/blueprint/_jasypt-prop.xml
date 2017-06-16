@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<bp:blueprint
+   xmlns="http://camel.apache.org/schema/blueprint"
+   xmlns:bp="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+   xmlns:enc="http://karaf.apache.org/xmlns/jasypt/v1.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://camel.apache.org/schema/blueprint
+         http://camel.apache.org/schema/blueprint/camel-blueprint-2.15.1.xsd
+      http://www.osgi.org/xmlns/blueprint/v1.0.0
+         https://osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+      http://karaf.apache.org/xmlns/jasypt/v1.0.0
+         http://karaf.apache.org/xmlns/jasypt/v1.0.0
+      "
+>
+
+   <!-- For use with <ext:property-placeholder> external properties files -->
+   <enc:property-placeholder>
+      <enc:encryptor class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+         <bp:property name="config">
+            <bp:bean
+         class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig"
+      >
+               <bp:property
+         name="algorithmEnvName"
+         value="PLACEHOLDER_JASYPT_PBE_ALGORITHM" />
+               <bp:property
+         name="passwordEnvName"
+         value="PLACEHOLDER_OMS_JASYPT_PBE_PASSWORD" />
+            </bp:bean>
+         </bp:property>
+      </enc:encryptor>
+   </enc:property-placeholder>
+
+   <!--
+      For use with <camelContext><propertyPlaceholder> backed by a
+      <cm:property-placeholder>
+   -->
+   <bp:bean
+      id="jasyptPropertiesParser"
+      class="org.apache.camel.component.jasypt.JasyptPropertiesParser"
+   >
+      <bp:property name="encryptor">
+         <bp:bean class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+            <bp:property name="config">
+               <bp:bean
+                  class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig"
+               >
+                  <bp:property
+                     name="algorithmEnvName"
+                     value="PLACEHOLDER_OMS_JASYPT_PBE_ALGORITHM" />
+                  <bp:property
+                     name="passwordEnvName"
+                     value="PLACEHOLDER_OMS_JASYPT_PBE_PASSWORD" />
+               </bp:bean>
+            </bp:property>
+         </bp:bean>
+      </bp:property>
+   </bp:bean>
+
+</bp:blueprint>

@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  
+  
+  <groupId>com.eddosoa.fuse</groupId>
+  <artifactId>camel-osgi-bundle-archetype</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>maven-archetype</packaging>
+  <name>EDDO SOA :: Fuse Projects :: Camel Blueprint OSGi bundle (Maven archetype)</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+      <archetype-packaging.version>2.4</archetype-packaging.version>
+      <maven-archetype-plugin.version>2.4</maven-archetype-plugin.version>
+   </properties>
+   
+   <build>
+
+      <extensions>
+
+         <extension>
+            <groupId>org.apache.maven.archetype</groupId>
+            <artifactId>archetype-packaging</artifactId>
+            <version>${archetype-packaging.version}</version>
+         </extension>
+
+      </extensions>
+
+      <pluginManagement>
+         <plugins>
+
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-archetype-plugin</artifactId>
+               <version>${maven-archetype-plugin.version}</version>
+            </plugin>
+
+         </plugins>
+      </pluginManagement>
+
+   </build>
+</project>

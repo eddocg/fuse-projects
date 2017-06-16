@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<bp:blueprint
+   xmlns="http://camel.apache.org/schema/blueprint"
+   xmlns:bp="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+   xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://camel.apache.org/schema/blueprint
+         http://camel.apache.org/schema/blueprint/camel-blueprint-2.15.1.xsd
+      http://www.osgi.org/xmlns/blueprint/v1.0.0
+         https://osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+      http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0
+         http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd
+      "
+>
+
+   <!-- NOTE: persistent-id MUST NOT contain hyphens! -->
+   <cm:property-placeholder
+      id="hello-world-property-placeholder"
+      persistent-id="com.eddosoa.fuse.hello.world"
+      placeholder-prefix="$["
+      placeholder-suffix="]"
+      update-strategy="reload"
+   >
+      <cm:default-properties>
+         <!--
+            do NOT use "ENC(...)" values - they will ONLY work when loaded from
+            the .cfg file!
+         -->
+         <cm:property
+            name="enableTracing"
+            value="false" />
+         <cm:property
+            name="CamelLogDebugBodyMaxChars"
+            value="-1" />
+      </cm:default-properties>
+   </cm:property-placeholder>
+
+   <camelContext
+      id="hello-world"
+      trace="{{enableTracing}}"
+      streamCache="false"
+      useBlueprintPropertyResolver="true"
+   >
+
+      <properties>
+         <property
+            key="CamelLogDebugBodyMaxChars"
+            value="{{CamelLogDebugBodyMaxChars}}" />
+      </properties>
+
+      <propertyPlaceholder
+         id="hello-world-propertyPlaceholder"
+         location="blueprint:hello-world-property-placeholder"
+         propertiesParserRef="jasyptPropertiesParser" />
+
+      <route id="01_main">
+         <from uri="{{in.endpoint}}" />
+         <!-- ROUTE PROCESSING GOES HERE -->
+         <to uri="{{out.endpoint}}" />
+      </route>
+
+   </camelContext>
+
+</bp:blueprint>
